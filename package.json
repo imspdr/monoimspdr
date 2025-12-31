@@ -1,0 +1,27 @@
+{
+  "name": "monoimspdr",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "dev:kospi200": "yarn workspace kospi200 dev",
+    "dev:shell": "yarn workspace shell dev",
+    "dev:all": "yarn workspaces run dev"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "prettier": "^3.7.4",
+    "typescript": "^5.0.0"
+  },
+  "packageManager": "yarn@1.22.22"
+}
