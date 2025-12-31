@@ -31,7 +31,7 @@ module.exports = {
       name: 'kospi200',
       filename: 'remoteEntry.js',
       exposes: {
-        './App': './src/App',
+        './App': './src/components/Dashboard/Dashboard',
       },
       shared: {
         ...deps,
