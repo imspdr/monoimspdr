@@ -16,10 +16,11 @@
     "format:check": "prettier --check .",
     "dev:kospi200": "yarn workspace kospi200 dev",
     "dev:shell": "yarn workspace shell dev",
-    "dev:all": "yarn workspaces run dev"
+    "dev:all": "concurrently \"yarn dev:kospi200\" \"yarn dev:shell\""
   },
   "devDependencies": {
     "@types/node": "^25.0.3",
+    "concurrently": "^9.2.1",
     "prettier": "^3.7.4",
     "typescript": "^5.0.0"
   },

@@ -1,31 +1,23 @@
 import React from 'react';
-import { Button } from '@imspdr/ui';
-import { Global, css } from '@emotion/react';
+import { Button, useTheme, ThemeToggleButton } from '@imspdr/ui';
+import { Container, Title, Description, ButtonGroup } from './styled';
 
 const App = () => {
+  const { mode } = useTheme();
+
   return (
-    <>
-      <Global
-        styles={css`
-          body {
-            margin: 0;
-            font-family:
-              -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-              Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-          }
-        `}
-      />
-      <div style={{ textAlign: 'center' }}>
-        <h1>KOSPI 200 Dashboard</h1>
-        <p>This is a starting project for KOSPI 200 data analysis.</p>
-        <Button onClick={() => alert('Hello from @imspdrui!')}>Click Me</Button>
+    <Container>
+      <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
+        <ThemeToggleButton />
       </div>
-    </>
+      <Title>KOSPI 200 Dashboard</Title>
+      <Description>
+        Current Theme: <strong>{mode}</strong>
+      </Description>
+      <ButtonGroup>
+        <Button onClick={() => alert('Hello from @imspdrui!')}>Action</Button>
+      </ButtonGroup>
+    </Container>
   );
 };
 
