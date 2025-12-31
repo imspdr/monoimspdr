@@ -4,5 +4,7 @@ dist
 *.log
 **/node_modules
 **/dist
+**/venv
+**/__pycache__
 .vscode/
 .agent/
