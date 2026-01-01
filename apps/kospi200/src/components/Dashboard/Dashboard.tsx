@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Button, useTheme, Stack } from '@imspdr/ui';
-import { Title, Description, ButtonGroup, Table, Th, Td, BuySignal } from './styled';
+import { useTheme, Stack, Button } from '@imspdr/ui';
+import { Title, Description, ButtonGroup, Table, Th, Td, SignalBadge, Top10Label } from './styled';
 import { useStocks, useStockDetail, Stock } from '../../hooks/useKospiData';
 
 const Dashboard = () => {
   const { mode } = useTheme();
   const { data: stocks, isLoading, isError, refetch } = useStocks();
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
+
+  // Identify top 10 stocks with the biggest change magnitude
+  const processedStocks = stocks ? [...stocks]
+    .map(s => ({
+      ...s,
+      changePercent: Math.abs((s.today - s.last) / s.last) * 100
+    }))
+    .sort((a, b) => b.changePercent - a.changePercent) : [];
+
+  const top10Codes = new Set(processedStocks.slice(0, 10).map(s => s.code));
 
   // Example of using the detail hook
   const { data: detail } = useStockDetail(selectedCode);
@@ -19,7 +29,6 @@ const Dashboard = () => {
 
   const handleRowClick = (code: string) => {
     setSelectedCode(code);
-    alert(`Selected ${code}. Loading details (check console)...`);
   };
 
   if (isError) {
@@ -50,9 +59,9 @@ const Dashboard = () => {
         marginRight: 'auto',
       }}
     >
-      <Title>KOSPI 200 Buy Signals</Title>
+      <Title>KOSPI 200 Analysis</Title>
       <Description>
-        Daily crawling data from Naver Finance. Current Theme: <strong>{mode}</strong>
+        Top 10 movers emphasized. Current Theme: <strong>{mode}</strong>
       </Description>
 
       {isLoading ? (
@@ -65,29 +74,40 @@ const Dashboard = () => {
               <Th>Code</Th>
               <Th>Price</Th>
               <Th>Change</Th>
-              <Th>Signal</Th>
+              <Th>Signals</Th>
             </tr>
           </thead>
           <tbody>
-            {stocks?.map((stock: Stock) => (
+            {processedStocks.map((stock) => (
               <tr 
                 key={stock.code} 
                 onClick={() => handleRowClick(stock.code)}
                 style={{ 
                   cursor: 'pointer',
-                  backgroundColor: selectedCode === stock.code ? 'var(--imspdr-background-bg2)' : 'transparent'
+                  backgroundColor: selectedCode === stock.code 
+                    ? 'var(--imspdr-background-bg2)' 
+                    : top10Codes.has(stock.code) 
+                      ? 'rgba(var(--imspdr-primary-primary1-rgb), 0.05)' 
+                      : 'transparent',
+                  borderLeft: top10Codes.has(stock.code) ? '4px solid var(--imspdr-primary-primary1)' : 'none'
                 }}
               >
-                <Td>{stock.name}</Td>
+                <Td>
+                  {top10Codes.has(stock.code) && <Top10Label>TOP 10</Top10Label>}
+                  {stock.name}
+                </Td>
                 <Td>{stock.code}</Td>
                 <Td>{stock.today.toLocaleString()}원</Td>
                 <Td style={{ color: stock.today >= stock.last ? 'var(--imspdr-danger-danger1)' : 'var(--imspdr-primary-primary1)' }}>
-                  {stock.today >= stock.last ? '+' : ''}{(stock.today - stock.last).toLocaleString()}원
+                  {stock.today >= stock.last ? '▲' : '▼'} {(stock.today - stock.last).toLocaleString()}원
+                  ({((stock.today - stock.last) / stock.last * 100).toFixed(2)}%)
                 </Td>
                 <Td>
-                  <BuySignal toBuy={stock.to_buy}>
-                    {stock.to_buy ? 'BUY' : '-'}
-                  </BuySignal>
+                  {stock.to_buy.length > 0 ? (
+                    stock.to_buy.map(signal => (
+                      <SignalBadge key={signal}>{signal}</SignalBadge>
+                    ))
+                  ) : '-'}
                 </Td>
               </tr>
             ))}

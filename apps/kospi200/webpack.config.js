@@ -23,7 +23,12 @@ module.exports = {
       {
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
-        use: 'babel-loader',
+        use: {
+          loader: 'babel-loader',
+          options: {
+            rootMode: 'upward',
+          },
+        },
       },
     ],
   },

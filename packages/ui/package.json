@@ -10,7 +10,17 @@
     "react-dom": "^18.2.0",
     "react-icons": "^5.5.0"
   },
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
   "devDependencies": {
+    "@storybook/addon-essentials": "^7.6.0",
+    "@storybook/addon-interactions": "^7.6.0",
+    "@storybook/addon-links": "^7.6.0",
+    "@storybook/react": "^7.6.0",
+    "@storybook/react-webpack5": "^7.6.0",
+    "storybook": "^7.6.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0"
   }

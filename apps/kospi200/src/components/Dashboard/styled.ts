@@ -46,3 +46,25 @@ export const BuySignal = styled.span<{ toBuy: boolean }>`
   color: ${props => props.toBuy ? 'var(--imspdr-danger-danger1)' : 'inherit'};
   font-weight: ${props => props.toBuy ? 'bold' : 'normal'};
 `;
+
+export const SignalBadge = styled.span`
+  background-color: var(--imspdr-danger-danger1);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-right: 4px;
+  text-transform: uppercase;
+`;
+
+export const Top10Label = styled.span`
+  background-color: var(--imspdr-primary-primary1);
+  color: white;
+  padding: 1px 4px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: bold;
+  margin-right: 8px;
+  vertical-align: middle;
+`;

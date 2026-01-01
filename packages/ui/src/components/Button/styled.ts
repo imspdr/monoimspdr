@@ -1,22 +1,59 @@
 import styled from '@emotion/styled';
 
-export const StyledButton = styled.button`
-  background-color: var(--imspdr-mint-mint1);
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 600;
-  transition: all 0.2s ease;
+export type ButtonVariant = 'box' | 'outlined';
 
-  &:hover {
-    background-color: var(--imspdr-mint-mint2);
-    transform: translateY(-1px);
-  }
+interface StyledButtonProps {
+  variant?: ButtonVariant;
+}
+
+export const StyledButton = styled.button<StyledButtonProps>`
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  ${({ variant }) =>
+    variant === 'outlined'
+      ? `
+    background: transparent;
+    border: 1px solid var(--imspdr-mint-mint1);
+    color: var(--imspdr-mint-mint1);
+    &:hover {
+      background: rgba(45, 212, 191, 0.1);
+    }
+  `
+      : `
+    background: var(--imspdr-mint-mint1);
+    border: 1px solid var(--imspdr-mint-mint1);
+    color: white;
+    &:hover {
+      background: var(--imspdr-mint-mint2);
+      border-color: var(--imspdr-mint-mint2);
+    }
+  `}
 
   &:active {
-    transform: translateY(0);
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: var(--imspdr-foreground-fg3);
+    border-color: var(--imspdr-foreground-fg3);
+    color: var(--imspdr-background-bg2);
+    opacity: 0.6;
+    
+    ${({ variant }) =>
+      variant === 'outlined' &&
+      `
+      background: transparent;
+      color: var(--imspdr-foreground-fg3);
+    `}
   }
 `;

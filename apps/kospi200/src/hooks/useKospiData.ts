@@ -4,7 +4,7 @@ import axios from 'axios';
 export interface Stock {
   code: string;
   name: string;
-  to_buy: boolean;
+  to_buy: string[];
   today: number;
   last: number;
 }
