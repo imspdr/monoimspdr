@@ -1,15 +1,20 @@
 import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeToggleButton } from '@imspdr/ui';
 import Dashboard from './components/Dashboard/Dashboard';
 
+const queryClient = new QueryClient();
+
 const App = () => {
   return (
-    <div style={{ position: 'relative' }}>
-      <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
-        <ThemeToggleButton />
+    <QueryClientProvider client={queryClient}>
+      <div style={{ position: 'relative' }}>
+        <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
+          <ThemeToggleButton />
+        </div>
+        <Dashboard />
       </div>
-      <Dashboard />
-    </div>
+    </QueryClientProvider>
   );
 };
 

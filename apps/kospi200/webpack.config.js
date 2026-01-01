@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const deps = require('./package.json').dependencies;
 
 module.exports = {
@@ -44,11 +45,19 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'public/data', to: 'data', noErrorOnMissing: true },
+      ],
+    }),
   ],
   devServer: {
     port: 3000,
     hot: true,
     historyApiFallback: true,
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
     headers: {
       'Access-Control-Allow-Origin': '*',
     },

@@ -22,3 +22,27 @@ export const ButtonGroup = styled.div`
   gap: 10px;
   justify-content: center;
 `;
+
+export const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  color: var(--imspdr-foreground-fg1);
+`;
+
+export const Th = styled.th`
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid var(--imspdr-background-bg3);
+  color: var(--imspdr-foreground-fg2);
+`;
+
+export const Td = styled.td`
+  padding: 12px;
+  border-bottom: 1px solid var(--imspdr-background-bg3);
+`;
+
+export const BuySignal = styled.span<{ toBuy: boolean }>`
+  color: ${props => props.toBuy ? 'var(--imspdr-danger-danger1)' : 'inherit'};
+  font-weight: ${props => props.toBuy ? 'bold' : 'normal'};
+`;
