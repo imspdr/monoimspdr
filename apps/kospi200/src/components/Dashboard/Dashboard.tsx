@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useTheme, Stack, Button } from '@imspdr/ui';
+import { useTheme, Stack, Button, useToast } from '@imspdr/ui';
 import { Title, Description, ButtonGroup, Table, Th, Td, SignalBadge, Top10Label } from './styled';
 import { useStocks, useStockDetail, Stock } from '../../hooks/useKospiData';
 
 const Dashboard = () => {
   const { mode } = useTheme();
+  const { showToast } = useToast();
   const { data: stocks, isLoading, isError, refetch } = useStocks();
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
+
+  const handleRefresh = () => {
+    refetch().then(() => {
+      showToast('주식 데이터가 성공적으로 갱신되었습니다.');
+    });
+  };
 
   // Identify top 10 stocks with the biggest change magnitude
   const processedStocks = stocks ? [...stocks]
@@ -116,7 +123,7 @@ const Dashboard = () => {
       )}
 
       <ButtonGroup>
-        <Button onClick={() => refetch()}>Refresh Data</Button>
+        <Button onClick={handleRefresh}>데이터 갱신</Button>
       </ButtonGroup>
     </Stack>
   );

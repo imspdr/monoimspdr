@@ -1,36 +1,51 @@
-import React, { useState } from 'react';
-import { Modal } from './index';
+import React from 'react';
+import { ModalProvider, useModal } from '../../providers';
+import { Button } from '../Button';
+import { Stack } from '../Stack';
+import { Typography } from '../Typography';
 
 export default {
   title: 'Components/Modal',
-  component: Modal,
+  decorators: [
+    (Story: any) => (
+      <ModalProvider>
+        <Story />
+      </ModalProvider>
+    ),
+  ],
 };
 
-export const Default = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const ChainedModalDemo = () => {
+  const { openModal, closeModal } = useModal();
+
+  const openSecondModal = () => {
+    openModal(
+      <Typography variant="body">이것은 첫 번째 모달 위에 열린 두 번째 모달입니다.</Typography>,
+      {
+        title: '두 번째 모달',
+        footer: <Button onClick={() => closeModal()}>이 모달 닫기</Button>
+      }
+    );
+  };
+
+  const openFirstModal = () => {
+    openModal(
+      <Typography variant="body">여기서 버튼을 눌러 또 다른 모달을 열 수 있습니다.</Typography>,
+      {
+        title: '첫 번째 모달',
+        footer: (
+          <>
+            <Button variant="outlined" onClick={() => closeModal()}>취소</Button>
+            <Button onClick={openSecondModal}>다음 모달</Button>
+          </>
+        )
+      }
+    );
+  };
+
   return (
-    <>
-      <button onClick={() => setIsOpen(true)}>Open Modal</button>
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <h2>Modal Title</h2>
-        <p>This is a modal content with a dim background.</p>
-        <button onClick={() => setIsOpen(false)}>Close</button>
-      </Modal>
-    </>
+    <Button onClick={openFirstModal}>모달 체이닝 시작</Button>
   );
 };
 
-export const LongContent = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <>
-      <button onClick={() => setIsOpen(true)}>Open Long Modal</button>
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <h2>Scroll Test</h2>
-        <div style={{ height: '1000px', background: 'linear-gradient(to bottom, #eee, #333)' }}>
-          Long content to test background lock.
-        </div>
-      </Modal>
-    </>
-  );
-};
+export const Default = () => <ChainedModalDemo />;

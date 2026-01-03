@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { HiSun, HiMoon } from 'react-icons/hi2';
-import { useTheme } from '../../theme/ThemeProvider';
+import { useTheme } from '../../providers';
 import { Container, SunIcon, MoonIcon } from './styled';
 
 export const ThemeToggleButton: React.FC = () => {

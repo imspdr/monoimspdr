@@ -8,21 +8,21 @@ export default {
 
 export const Box = () => (
   <div style={{ display: 'flex', gap: '10px' }}>
-    <Button variant="box" onClick={() => alert('Box Clicked!')}>Click Me (Box)</Button>
-    <Button variant="box" disabled>Disabled Box</Button>
+    <Button variant="box" onClick={() => alert('박스 버튼 클릭!')}>클릭해주세요 (박스)</Button>
+    <Button variant="box" disabled>비활성화 버튼</Button>
   </div>
 );
 
 export const Outlined = () => (
   <div style={{ display: 'flex', gap: '10px' }}>
-    <Button variant="outlined" onClick={() => alert('Outlined Clicked!')}>Click Me (Outlined)</Button>
-    <Button variant="outlined" disabled>Disabled Outlined</Button>
+    <Button variant="outlined" onClick={() => alert('아웃라인 버튼 클릭!')}>클릭해주세요 (아웃라인)</Button>
+    <Button variant="outlined" disabled>비활성화 아웃라인</Button>
   </div>
 );
 
 export const Comparison = () => (
   <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-    <Button variant="box">Box</Button>
-    <Button variant="outlined">Outlined</Button>
+    <Button variant="box">박스형</Button>
+    <Button variant="outlined">아웃라인형</Button>
   </div>
 );
