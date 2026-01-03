@@ -1,7 +1,3 @@
 import '@emotion/react';
-import { ColorTokens } from './tokens/colors';
 
-declare module '@emotion/react' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  export interface Theme extends ColorTokens {}
-}
+// Emotion Theme module augmentation removed as we are using CSS variables.
