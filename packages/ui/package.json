@@ -8,7 +8,8 @@
     "@emotion/styled": "^11.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "@imspdr/utils": "*"
   },
   "scripts": {
     "storybook": "storybook dev -p 6006",

@@ -46,7 +46,9 @@ export const DropSelect: React.FC<DropSelectProps> = ({
 
   const filteredOptions = useMemo(() => {
     if (!searchQuery) return options;
-    return options.filter((opt) => opt.label.toLowerCase().includes(searchQuery.toLowerCase()));
+    return options.filter((opt) =>
+      opt.label.normalize('NFC').toLowerCase().includes(searchQuery.normalize('NFC').toLowerCase()),
+    );
   }, [options, searchQuery]);
 
   useEffect(() => {

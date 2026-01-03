@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { HiSearch, HiX } from 'react-icons/hi';
-import { SearchWrapper, StyledInput, IconWrapper, ClearButton } from './styled';
+import { useDebounce } from '@imspdr/utils';
+import { ClearButton, IconWrapper, SearchWrapper, StyledInput } from './styled';
 
 export interface SearchInputProps {
   value: string;
@@ -19,14 +20,32 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   className,
   autoFocus,
 }) => {
+  const [inputValue, setInputValue] = useState(value);
+  const debouncedValue = useDebounce(inputValue, 300);
+
+  useEffect(() => {
+    setInputValue(value);
+  }, [value]);
+
+  useEffect(() => {
+    if (debouncedValue !== value) {
+      onChange(debouncedValue);
+    }
+  }, [debouncedValue, onChange, value]);
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && onEnter) {
       onEnter();
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
   const handleClear = (e: React.MouseEvent) => {
     e.stopPropagation();
+    setInputValue('');
     onChange('');
   };
 
@@ -34,12 +53,12 @@ export const SearchInput: React.FC<SearchInputProps> = ({
     <SearchWrapper className={className}>
       <StyledInput
         autoFocus={autoFocus}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+        value={inputValue}
+        onChange={handleChange}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
       />
-      {value && (
+      {inputValue && (
         <ClearButton onClick={handleClear} type="button">
           <HiX size={14} />
         </ClearButton>
