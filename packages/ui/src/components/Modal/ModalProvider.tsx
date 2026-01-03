@@ -1,5 +1,20 @@
-import React, { createContext, useState, useCallback, ReactNode, useEffect, useContext } from 'react';
-import { Overlay, ModalContent, CloseButton, ModalHeader, ModalTitle, ModalBody, ModalFooter } from '../components/Modal/styled';
+import React, {
+  ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import {
+  CloseButton,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  Overlay,
+} from './styled';
 
 interface ModalInstance {
   id: string;
@@ -41,15 +56,15 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const closeModal = useCallback((id?: string) => {
     setModalStack((prev) => {
       if (prev.length === 0) return prev;
-      
+
       const targetId = id || prev[prev.length - 1].id;
-      const targetModal = prev.find(m => m.id === targetId);
-      
+      const targetModal = prev.find((m) => m.id === targetId);
+
       if (targetModal?.options?.onClose) {
         targetModal.options.onClose();
       }
-      
-      return prev.filter(m => m.id !== targetId);
+
+      return prev.filter((m) => m.id !== targetId);
     });
   }, []);
 
@@ -59,14 +74,14 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         closeModal();
       }
     };
-    
+
     if (modalStack.length > 0) {
       window.addEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-    
+
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'unset';
@@ -77,8 +92,8 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     <ModalContext.Provider value={{ openModal, closeModal }}>
       {children}
       {modalStack.map((modal, index) => (
-        <Overlay 
-          key={modal.id} 
+        <Overlay
+          key={modal.id}
           style={{ zIndex: 1000 + index }}
           onClick={(e) => {
             if (e.target === e.currentTarget && modal.options?.closeOnOverlayClick !== false) {
@@ -91,14 +106,8 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
               <ModalTitle>{modal.options?.title || '알림'}</ModalTitle>
               <CloseButton onClick={() => closeModal(modal.id)}>&times;</CloseButton>
             </ModalHeader>
-            <ModalBody>
-              {modal.content}
-            </ModalBody>
-            {modal.options?.footer && (
-              <ModalFooter>
-                {modal.options.footer}
-              </ModalFooter>
-            )}
+            <ModalBody>{modal.content}</ModalBody>
+            {modal.options?.footer && <ModalFooter>{modal.options.footer}</ModalFooter>}
           </ModalContent>
         </Overlay>
       ))}

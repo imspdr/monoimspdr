@@ -1,14 +1,14 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { HiChevronDown, HiChevronUp, HiSearch } from 'react-icons/hi';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { HiChevronDown, HiChevronUp } from 'react-icons/hi';
 import { SearchInput } from '../SearchInput';
-import { 
-  Container, 
-  SelectButton, 
-  Dropdown, 
-  SearchBox, 
-  OptionsList, 
+import {
+  Container,
+  Dropdown,
+  NoResults,
   OptionItem,
-  NoResults 
+  OptionsList,
+  SearchBox,
+  SelectButton,
 } from './styled';
 
 export interface Option {
@@ -39,15 +39,14 @@ export const DropSelect: React.FC<DropSelectProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const selectedOption = useMemo(() => 
-    options.find(opt => opt.value === selected),
-  [options, selected]);
+  const selectedOption = useMemo(
+    () => options.find((opt) => opt.value === selected),
+    [options, selected],
+  );
 
   const filteredOptions = useMemo(() => {
     if (!searchQuery) return options;
-    return options.filter(opt => 
-      opt.label.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    return options.filter((opt) => opt.label.toLowerCase().includes(searchQuery.toLowerCase()));
   }, [options, searchQuery]);
 
   useEffect(() => {
@@ -77,7 +76,7 @@ export const DropSelect: React.FC<DropSelectProps> = ({
         <Dropdown>
           {searchable && (
             <SearchBox onClick={(e) => e.stopPropagation()}>
-              <SearchInput 
+              <SearchInput
                 autoFocus
                 placeholder={searchPlaceholder}
                 value={searchQuery}

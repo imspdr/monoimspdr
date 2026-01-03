@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import { Global, css } from '@emotion/react';
-import { lightPalette, darkPalette, ColorTokens } from '../tokens/colors';
+import { ColorTokens, darkPalette, lightPalette } from '../../tokens/colors';
 
 type ThemeMode = 'light' | 'dark';
 
@@ -52,7 +52,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             background-color: var(--imspdr-background-bg1);
             color: var(--imspdr-foreground-fg1);
             margin: 0;
-            transition: background-color 0.3s, color 0.3s;
+            transition:
+              background-color 0.3s,
+              color 0.3s;
           }
         `}
       />

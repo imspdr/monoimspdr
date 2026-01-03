@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useTheme, Stack, Button, useToast } from '@imspdr/ui';
-import { Title, Description, ButtonGroup, Table, Th, Td, SignalBadge, Top10Label } from './styled';
-import { useStocks, useStockDetail, Stock } from '../../hooks/useKospiData';
+import React, { useEffect, useState } from 'react';
+import { Button, Stack, useTheme, useToast } from '@imspdr/ui';
+import { useStockDetail, useStocks } from '../../hooks/useKospiData';
+import { ButtonGroup, Description, SignalBadge, Table, Td, Th, Title, Top10Label } from './styled';
 
 const Dashboard = () => {
   const { mode } = useTheme();
@@ -16,14 +16,16 @@ const Dashboard = () => {
   };
 
   // Identify top 10 stocks with the biggest change magnitude
-  const processedStocks = stocks ? [...stocks]
-    .map(s => ({
-      ...s,
-      changePercent: Math.abs((s.today - s.last) / s.last) * 100
-    }))
-    .sort((a, b) => b.changePercent - a.changePercent) : [];
+  const processedStocks = stocks
+    ? [...stocks]
+        .map((s) => ({
+          ...s,
+          changePercent: Math.abs((s.today - s.last) / s.last) * 100,
+        }))
+        .sort((a, b) => b.changePercent - a.changePercent)
+    : [];
 
-  const top10Codes = new Set(processedStocks.slice(0, 10).map(s => s.code));
+  const top10Codes = new Set(processedStocks.slice(0, 10).map((s) => s.code));
 
   // Example of using the detail hook
   const { data: detail } = useStockDetail(selectedCode);
@@ -86,17 +88,20 @@ const Dashboard = () => {
           </thead>
           <tbody>
             {processedStocks.map((stock) => (
-              <tr 
-                key={stock.code} 
+              <tr
+                key={stock.code}
                 onClick={() => handleRowClick(stock.code)}
-                style={{ 
+                style={{
                   cursor: 'pointer',
-                  backgroundColor: selectedCode === stock.code 
-                    ? 'var(--imspdr-background-bg2)' 
-                    : top10Codes.has(stock.code) 
-                      ? 'rgba(var(--imspdr-primary-primary1-rgb), 0.05)' 
-                      : 'transparent',
-                  borderLeft: top10Codes.has(stock.code) ? '4px solid var(--imspdr-primary-primary1)' : 'none'
+                  backgroundColor:
+                    selectedCode === stock.code
+                      ? 'var(--imspdr-background-bg2)'
+                      : top10Codes.has(stock.code)
+                        ? 'rgba(var(--imspdr-primary-primary1-rgb), 0.05)'
+                        : 'transparent',
+                  borderLeft: top10Codes.has(stock.code)
+                    ? '4px solid var(--imspdr-primary-primary1)'
+                    : 'none',
                 }}
               >
                 <Td>
@@ -105,16 +110,22 @@ const Dashboard = () => {
                 </Td>
                 <Td>{stock.code}</Td>
                 <Td>{stock.today.toLocaleString()}원</Td>
-                <Td style={{ color: stock.today >= stock.last ? 'var(--imspdr-danger-danger1)' : 'var(--imspdr-primary-primary1)' }}>
-                  {stock.today >= stock.last ? '▲' : '▼'} {(stock.today - stock.last).toLocaleString()}원
-                  ({((stock.today - stock.last) / stock.last * 100).toFixed(2)}%)
+                <Td
+                  style={{
+                    color:
+                      stock.today >= stock.last
+                        ? 'var(--imspdr-danger-danger1)'
+                        : 'var(--imspdr-primary-primary1)',
+                  }}
+                >
+                  {stock.today >= stock.last ? '▲' : '▼'}{' '}
+                  {(stock.today - stock.last).toLocaleString()}원 (
+                  {(((stock.today - stock.last) / stock.last) * 100).toFixed(2)}%)
                 </Td>
                 <Td>
-                  {stock.to_buy.length > 0 ? (
-                    stock.to_buy.map(signal => (
-                      <SignalBadge key={signal}>{signal}</SignalBadge>
-                    ))
-                  ) : '-'}
+                  {stock.to_buy.length > 0
+                    ? stock.to_buy.map((signal) => <SignalBadge key={signal}>{signal}</SignalBadge>)
+                    : '-'}
                 </Td>
               </tr>
             ))}

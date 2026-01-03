@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeProvider } from '../src/providers/ThemeProvider';
+import { ThemeProvider } from '../src/components/ThemeToggleButton/ThemeProvider';
 
 export const decorators = [
   (Story) => (

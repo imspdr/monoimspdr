@@ -1,5 +1,5 @@
-import React, { createContext, useState, useCallback, ReactNode, useContext } from 'react';
-import { ToastContainer, ToastItem } from '../components/Toast';
+import React, { ReactNode, createContext, useCallback, useContext, useState } from 'react';
+import { ToastContainer, ToastItem } from './index';
 
 export interface Toast {
   id: number;
@@ -30,9 +30,7 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
     // Trigger fade out
     setTimeout(() => {
-      setToasts((prev) => 
-        prev.map((t) => t.id === id ? { ...t, isRemoving: true } : t)
-      );
+      setToasts((prev) => prev.map((t) => (t.id === id ? { ...t, isRemoving: true } : t)));
     }, 2700);
 
     // Remove toast
