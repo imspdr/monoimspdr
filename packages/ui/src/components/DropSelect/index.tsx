@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi';
+import { isKoreanMatch } from '@imspdr/utils';
 import { SearchInput } from '../SearchInput';
 import {
   Container,
@@ -46,9 +47,7 @@ export const DropSelect: React.FC<DropSelectProps> = ({
 
   const filteredOptions = useMemo(() => {
     if (!searchQuery) return options;
-    return options.filter((opt) =>
-      opt.label.normalize('NFC').toLowerCase().includes(searchQuery.normalize('NFC').toLowerCase()),
-    );
+    return options.filter((opt) => isKoreanMatch(opt.label, searchQuery));
   }, [options, searchQuery]);
 
   useEffect(() => {
