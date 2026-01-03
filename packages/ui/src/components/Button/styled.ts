@@ -25,13 +25,13 @@ export const StyledButton = styled.button<StyledButtonProps>`
     border: 1px solid var(--imspdr-mint-mint1);
     color: var(--imspdr-mint-mint1);
     &:hover {
-      background: rgba(45, 212, 191, 0.1);
+      background: var(--imspdr-mint-mint1_10);
     }
   `
       : `
     background: var(--imspdr-mint-mint1);
     border: 1px solid var(--imspdr-mint-mint1);
-    color: white;
+    color: var(--imspdr-white);
     &:hover {
       background: var(--imspdr-mint-mint2);
       border-color: var(--imspdr-mint-mint2);
@@ -48,7 +48,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
     border-color: var(--imspdr-foreground-fg3);
     color: var(--imspdr-background-bg2);
     opacity: 0.6;
-    
+
     ${({ variant }) =>
       variant === 'outlined' &&
       `

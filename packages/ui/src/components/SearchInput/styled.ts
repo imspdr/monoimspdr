@@ -20,7 +20,7 @@ export const StyledInput = styled.input`
 
   &:focus {
     border-color: var(--imspdr-mint-mint1);
-    box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.1);
+    box-shadow: 0 0 0 2px var(--imspdr-mint-mint1_10);
   }
 
   &::placeholder {

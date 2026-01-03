@@ -24,9 +24,11 @@ export const SelectButton = styled.div<{ isOpen: boolean }>`
     border-color: var(--imspdr-mint-mint1);
   }
 
-  ${({ isOpen }) => isOpen && `
+  ${({ isOpen }) =>
+    isOpen &&
+    `
     border-color: var(--imspdr-mint-mint1);
-    box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.1);
+    box-shadow: 0 0 0 2px var(--imspdr-mint-mint1_10);
   `}
 `;
 
@@ -38,7 +40,7 @@ export const Dropdown = styled.div`
   background: var(--imspdr-background-bg1);
   border: 1px solid var(--imspdr-background-bg3);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--imspdr-shadow);
   z-index: 1000;
   overflow: hidden;
   display: flex;
@@ -54,7 +56,7 @@ export const SearchBox = styled.div`
 export const OptionsList = styled.div`
   max-height: 200px;
   overflow-y: auto;
-  
+
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -69,14 +71,17 @@ export const OptionItem = styled.div<{ isSelected: boolean }>`
   font-size: 14px;
   cursor: pointer;
   color: var(--imspdr-foreground-fg1);
-  background: ${({ isSelected }) => isSelected ? 'var(--imspdr-background-bg2)' : 'transparent'};
-  border-left: 3px solid ${({ isSelected }) => isSelected ? 'var(--imspdr-mint-mint1)' : 'transparent'};
+  background: ${({ isSelected }) => (isSelected ? 'var(--imspdr-background-bg2)' : 'transparent')};
+  border-left: 3px solid
+    ${({ isSelected }) => (isSelected ? 'var(--imspdr-mint-mint1)' : 'transparent')};
 
   &:hover {
     background: var(--imspdr-background-bg3);
   }
 
-  ${({ isSelected }) => isSelected && `
+  ${({ isSelected }) =>
+    isSelected &&
+    `
     font-weight: 600;
   `}
 `;

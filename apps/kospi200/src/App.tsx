@@ -1,6 +1,7 @@
 import React from 'react';
+import { ModalProvider, ThemeProvider, ThemeToggleButton, ToastProvider } from '@imspdr/ui';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider, ToastProvider, ModalProvider, ThemeToggleButton } from '@imspdr/ui';
+import ColorDemo from './components/ColorDemo';
 import Dashboard from './components/Dashboard/Dashboard';
 
 const queryClient = new QueryClient();
@@ -16,6 +17,7 @@ const App = () => {
                 <ThemeToggleButton />
               </div>
               <Dashboard />
+              <ColorDemo />
             </div>
           </ModalProvider>
         </ToastProvider>

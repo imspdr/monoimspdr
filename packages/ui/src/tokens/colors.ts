@@ -18,7 +18,21 @@ export const lightPalette = {
     mint1: '#2dd4bf', // Teal 400
     mint2: '#5eead4', // Teal 300
     mint3: '#99f6e4', // Teal 200
+    mint1_10: 'rgba(45, 212, 191, 0.1)', // Teal 400 10% opacity
   },
+  primary: {
+    main: '#2dd4bf',
+    hover: '#5eead4',
+    light: '#99f6e4',
+  },
+  danger: {
+    main: '#ef4444', // Red 500
+    hover: '#f87171', // Red 400
+    light: '#fca5a5', // Red 300
+  },
+  overlay: 'rgba(0, 0, 0, 0.5)',
+  shadow: 'rgba(0, 0, 0, 0.1)',
+  white: '#ffffff',
 };
 
 export const darkPalette = {
@@ -41,7 +55,21 @@ export const darkPalette = {
     mint1: '#2dd4bf', // Mint main
     mint2: '#14b8a6', // Mint darker
     mint3: '#0d9488', // Mint darkest
+    mint1_10: 'rgba(45, 212, 191, 0.1)', // Mint main 10% opacity
   },
+  primary: {
+    main: '#2dd4bf',
+    hover: '#14b8a6',
+    light: '#0d9488',
+  },
+  danger: {
+    main: '#ef4444', // Red 500
+    hover: '#dc2626', // Red 600
+    light: '#b91c1c', // Red 700
+  },
+  overlay: 'rgba(0, 0, 0, 0.5)',
+  shadow: 'rgba(0, 0, 0, 0.1)',
+  white: '#ffffff',
 };
 
 export type ColorTokens = typeof lightPalette;

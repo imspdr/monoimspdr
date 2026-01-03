@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
-import { Global, css } from '@emotion/react';
+import { ThemeProvider as EmotionThemeProvider, Global, css } from '@emotion/react';
 import { ColorTokens, darkPalette, lightPalette } from '../../tokens/colors';
 
 type ThemeMode = 'light' | 'dark';
@@ -40,25 +40,27 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   return (
     <ThemeContext.Provider value={{ mode, toggleTheme, tokens }}>
-      <Global
-        styles={css`
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap');
+      <EmotionThemeProvider theme={tokens}>
+        <Global
+          styles={css`
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap');
 
-          :root {
-            ${generateVars(tokens)}
-          }
+            :root {
+              ${generateVars(tokens)}
+            }
 
-          body {
-            background-color: var(--imspdr-background-bg1);
-            color: var(--imspdr-foreground-fg1);
-            margin: 0;
-            transition:
-              background-color 0.3s,
-              color 0.3s;
-          }
-        `}
-      />
-      {children}
+            body {
+              background-color: ${tokens.background.bg1};
+              color: ${tokens.foreground.fg1};
+              margin: 0;
+              transition:
+                background-color 0.3s,
+                color 0.3s;
+            }
+          `}
+        />
+        {children}
+      </EmotionThemeProvider>
     </ThemeContext.Provider>
   );
 };

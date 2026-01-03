@@ -6,7 +6,7 @@ export const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--imspdr-overlay);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,12 +14,13 @@ export const Overlay = styled.div`
   backdrop-filter: blur(4px);
 `;
 
-
 export const ModalContent = styled.div`
   background: var(--imspdr-background-bg1);
   color: var(--imspdr-foreground-fg1);
   border-radius: 12px;
-  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  box-shadow:
+    0 20px 25px -5px var(--imspdr-shadow),
+    0 8px 10px -6px var(--imspdr-shadow);
   max-width: 500px;
   width: 90%;
   position: relative;
